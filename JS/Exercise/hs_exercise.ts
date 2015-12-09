@@ -5,10 +5,10 @@
 ///<reference path="Support/handlebars.d.ts" />
 //编译命令：  tsc --outFile ../HexStudyExercise.js hs_exercise.ts hs_choice.ts hs_subjective.ts hs_fillBlank.ts hs_compute.ts hs_judgment.ts hs_program.ts hs_choiceFillBlank.ts
 
-var exerciseConfig:any;
+var exerciseConfig: any;
 
 namespace HexStudyExercise {
-    
+
     export class ExerciseBuilder {
         constructor() {
         }
@@ -56,13 +56,14 @@ namespace HexStudyExercise {
             var template = Handlebars.compile(this.exerciseTemplate);
             var html = template(this.exerciseData);
             $("[exerciseKey='" + this.eid + "']").first().html(html);
-            $("[exerciseKey='" + this.eid + "'] .tip a").bind("click", function(obj) {
-                alert(this.eid);
-            });
+            // $("[exerciseKey='" + this.eid + "'] .tip a").bind("click", function(obj) {
+            //     alert(this.eid);
+            // });
         }
 
         fixView() {
             this.InitSequence();
+            this.InitTips();
         }
 
         compareAnswer() { }
@@ -76,8 +77,13 @@ namespace HexStudyExercise {
                 $("[exerciseKey='" + this.eid + "']").find(".sequence").text(sq + ".");
             }
         }
+        //初始化提示
         private InitTips() {
-            //初始化提示
+            var exer: any = this;
+            $("[exerciseKey='" + this.eid + "']").find(".tip a").first().click(function() {
+                //alert(exer.eid);
+                $("[exerciseKey='" + exer.eid + "']").find(".tip-info [style='display:none;']").first().show();
+            });
         }
     }
 

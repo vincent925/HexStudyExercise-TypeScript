@@ -49,12 +49,13 @@ var HexStudyExercise;
             var template = Handlebars.compile(this.exerciseTemplate);
             var html = template(this.exerciseData);
             $("[exerciseKey='" + this.eid + "']").first().html(html);
-            $("[exerciseKey='" + this.eid + "'] .tip a").bind("click", function (obj) {
-                alert(this.eid);
-            });
+            // $("[exerciseKey='" + this.eid + "'] .tip a").bind("click", function(obj) {
+            //     alert(this.eid);
+            // });
         };
         Exercise.prototype.fixView = function () {
             this.InitSequence();
+            this.InitTips();
         };
         Exercise.prototype.compareAnswer = function () { };
         Exercise.prototype.timer = function () { };
@@ -66,8 +67,13 @@ var HexStudyExercise;
                 $("[exerciseKey='" + this.eid + "']").find(".sequence").text(sq + ".");
             }
         };
+        //初始化提示
         Exercise.prototype.InitTips = function () {
-            //初始化提示
+            var exer = this;
+            $("[exerciseKey='" + this.eid + "']").find(".tip a").first().click(function () {
+                //alert(exer.eid);
+                $("[exerciseKey='" + exer.eid + "']").find(".tip-info [style='display:none;']").first().show();
+            });
         };
         return Exercise;
     })();
